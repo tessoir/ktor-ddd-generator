@@ -5,4 +5,4 @@ pluginManagement {
     }
 }
 
-rootProject.name = "ktor-ddd-folders"
+rootProject.name = "ktor-ddd-generator"

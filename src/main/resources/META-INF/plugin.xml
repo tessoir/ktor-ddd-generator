@@ -1,30 +1,54 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
     <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
-    <id>io.github.mrkekovich.ktor-ddd-folders</id>
+    <id>io.github.mrkekovich.ktor-ddd-generator</id>
 
-    <!-- Public plugin name should be written in Title Case.
-         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
-    <name>Ktor-ddd-folders</name>
+    <!-- Public plugin name should be written in Title Case. -->
+    <name>Ktor DDD Generator</name>
 
-    <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
-    <vendor email="support@yourcompany.com" url="https://www.yourcompany.com">YourCompany</vendor>
+    <!-- Vendor name and contact information -->
+    <vendor url="https://github.com/mrkekovich/ktor-ddd-generator">mrkekovich</vendor>
 
-    <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
-         Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
-         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
+    <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager -->
     <description><![CDATA[
-    Enter short description for your plugin here.<br>
-    <em>most HTML tags may be used</em>
-  ]]></description>
+        <p>
+            This plugin generates a Domain-Driven Design (DDD) folder structure for Ktor projects.
+        </p>
 
-    <!-- Product and plugin compatibility requirements.
-         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
+        <p>
+            The plugin prompts you for a domain name (e.g., <code>Example</code>),which is used to generate the files.
+            The domain name follows the PascalCase convention, and the package names are automatically converted to lowercase.
+        </p>
+
+        <p>The structure is built with pre-defined templates, which include:</p>
+        <ul>
+            <li><strong>DTO files</strong> for application data transfer objects.</li>
+            <li><strong>Route files</strong> to define Ktor routes.</li>
+            <li><strong>Use cases</strong> for application logic.</li>
+            <li><strong>Domain entities</strong> representing your domain model.</li>
+            <li><strong>Repositories</strong> for accessing data.</li>
+            <li><strong>Persistence tables</strong> for database interaction.</li>
+        </ul>
+
+        <p>The plugin also offers the option to generate only the folder structure, without the files.</p>
+
+        <p>While designed for Ktor, this plugin can be used in other Kotlin projects as well (note that Ktor's <code>Route</code> class will be imported in the generated route files).</p>
+    ]]></description>
+
+    <!-- Product and plugin compatibility requirements -->
     <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.java</depends>
 
-    <!-- Extension points defined by the plugin.
-         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
+    <!-- Extension points defined by the plugin -->
     <extensions defaultExtensionNs="com.intellij">
-
     </extensions>
+
+    <!-- Actions provided by the plugin -->
+    <actions>
+        <action class="io.github.mrkekovich.ktordddgenerator.action.CreateDomainFolderStructure"
+                id="io.github.mrkekovich.ktordddgenerator.CreateDomainFolderStructureAction"
+                text="New Domain" description="Generate a DDD structure for a new domain">
+            <add-to-group group-id="NewGroup" anchor="before" relative-to-action="NewFile"/>
+        </action>
+    </actions>
 </idea-plugin>
