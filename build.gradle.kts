@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "io.github.mrkekovich"
-version = "1.0-SNAPSHOT"
+version = "1.0.0a0"
 
 repositories {
     mavenCentral()
@@ -17,7 +17,12 @@ intellij {
     version.set("2023.2.8")
     type.set("IC") // Target IDE Platform
 
-    plugins.set(listOf(/* Plugin Dependencies */))
+    plugins.set(
+        listOf(
+            "java",
+            "org.jetbrains.kotlin",
+        ),
+    )
 }
 
 tasks {
@@ -32,7 +37,7 @@ tasks {
 
     patchPluginXml {
         sinceBuild.set("232")
-        untilBuild.set("242.*")
+        untilBuild.set("243.*")
     }
 
     signPlugin {
