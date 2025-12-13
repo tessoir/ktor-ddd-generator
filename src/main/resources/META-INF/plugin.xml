@@ -1,13 +1,13 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
     <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
-    <id>io.github.mrkekovich.ktor-ddd-generator</id>
+    <id>io.github.tessoir.ktor-ddd-generator</id>
 
     <!-- Public plugin name should be written in Title Case. -->
     <name>Ktor DDD Generator</name>
 
     <!-- Vendor name and contact information -->
-    <vendor url="https://github.com/mrkekovich/ktor-ddd-generator">mrkekovich</vendor>
+    <vendor url="https://github.com/tessoir/ktor-ddd-generator">tessoir</vendor>
 
     <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager -->
     <description><![CDATA[
@@ -45,8 +45,8 @@
 
     <!-- Actions provided by the plugin -->
     <actions>
-        <action class="io.github.mrkekovich.ktordddgenerator.action.CreateDomainFolderStructure"
-                id="io.github.mrkekovich.ktordddgenerator.CreateDomainFolderStructureAction"
+        <action class="io.github.tessoir.ktordddgenerator.action.CreateDomainFolderStructure"
+                id="io.github.tessoir.ktordddgenerator.CreateDomainFolderStructureAction"
                 text="New Domain" description="Generate a DDD structure for a new domain">
             <add-to-group group-id="NewGroup" anchor="before" relative-to-action="NewFile"/>
         </action>

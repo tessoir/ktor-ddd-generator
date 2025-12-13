@@ -1,4 +1,4 @@
-package io.github.mrkekovich.ktordddgenerator.template
+package io.github.tessoir.ktordddgenerator.template
 
 object KtorDddTemplates {
     fun getDtoTemplate(

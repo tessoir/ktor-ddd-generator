@@ -1,4 +1,4 @@
-package io.github.mrkekovich.ktordddgenerator.action
+package io.github.tessoir.ktordddgenerator.action
 
 import com.intellij.codeInsight.daemon.JavaErrorBundle
 import com.intellij.codeInsight.daemon.impl.analysis.HighlightClassUtil
@@ -16,8 +16,8 @@ import com.intellij.psi.PsiDocumentManager
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiNameHelper
 import com.intellij.psi.util.PsiUtil
-import io.github.mrkekovich.ktordddgenerator.asset.PlatformAssets
-import io.github.mrkekovich.ktordddgenerator.template.KtorDddTemplates
+import io.github.tessoir.ktordddgenerator.asset.PlatformAssets
+import io.github.tessoir.ktordddgenerator.template.KtorDddTemplates
 import org.jetbrains.jps.model.java.JavaModuleSourceRootTypes
 
 class CreateDomainFolderStructure :
