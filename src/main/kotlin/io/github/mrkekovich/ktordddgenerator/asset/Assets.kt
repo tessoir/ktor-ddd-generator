@@ -1,4 +1,4 @@
-package io.github.tessoir.ktordddgenerator.asset
+package io.github.mrkekovich.ktordddgenerator.asset
 
 import com.intellij.openapi.util.IconLoader
 import javax.swing.Icon
