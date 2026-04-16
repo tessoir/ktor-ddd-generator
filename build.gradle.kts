@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "io.github.mrkekovich"
-version = "1.4.0"
+version = "1.4.2"
 
 repositories {
     mavenCentral()
@@ -30,6 +30,7 @@ intellijPlatform {
     pluginConfiguration {
         ideaVersion {
             sinceBuild = "232"
+            untilBuild = provider { null }
         }
     }
     signing {

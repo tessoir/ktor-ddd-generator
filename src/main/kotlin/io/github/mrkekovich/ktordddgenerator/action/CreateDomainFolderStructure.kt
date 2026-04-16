@@ -1,7 +1,6 @@
 package io.github.mrkekovich.ktordddgenerator.action
 
 import com.intellij.codeInsight.daemon.JavaErrorBundle
-import com.intellij.codeInsight.daemon.impl.analysis.HighlightClassUtil
 import com.intellij.icons.AllIcons
 import com.intellij.ide.actions.CreateFileFromTemplateDialog
 import com.intellij.ide.actions.CreateTemplateInPackageAction
@@ -9,6 +8,7 @@ import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.InputValidatorEx
 import com.intellij.openapi.util.text.StringUtil
+import com.intellij.pom.java.LanguageLevel
 import com.intellij.psi.JavaDirectoryService
 import com.intellij.psi.PsiClass
 import com.intellij.psi.PsiDirectory
@@ -78,7 +78,7 @@ class CreateDomainFolderStructure :
 
             val shortName = StringUtil.getShortName(inputString)
             val languageLevel = PsiUtil.getLanguageLevel(directory)
-            return if (HighlightClassUtil.isRestrictedIdentifier(shortName, languageLevel)) {
+            return if (isRestrictedIdentifier(shortName, languageLevel)) {
                 JavaErrorBundle.message("restricted.identifier", shortName)
             } else {
                 null
@@ -180,3 +180,18 @@ private enum class TemplateType {
     WITHOUT_FILES,
     WITH_FILES,
 }
+
+// Replaces the deprecated HighlightClassUtil.isRestrictedIdentifier.
+// Java restricted identifiers (context-sensitive keywords) by language level:
+//   JDK 10+: var
+//   JDK 14+: yield
+//   JDK 16+: record
+//   JDK 17+: sealed, permits
+private fun isRestrictedIdentifier(name: String, level: LanguageLevel): Boolean =
+    when (name) {
+        "var" -> level.isAtLeast(LanguageLevel.JDK_10)
+        "yield" -> level.isAtLeast(LanguageLevel.JDK_14)
+        "record" -> level.isAtLeast(LanguageLevel.JDK_16)
+        "sealed", "permits" -> level.isAtLeast(LanguageLevel.JDK_17)
+        else -> false
+    }
