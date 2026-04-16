@@ -1,52 +1,54 @@
 plugins {
     id("java")
     id("org.jetbrains.kotlin.jvm") version "1.9.25"
-    id("org.jetbrains.intellij") version "1.17.4"
+    id("org.jetbrains.intellij.platform") version "2.2.1"
 }
 
 group = "io.github.mrkekovich"
-version = "1.3.0"
+version = "1.4.0"
 
 repositories {
     mavenCentral()
+    intellijPlatform {
+        defaultRepositories()
+    }
 }
 
-// Configure Gradle IntelliJ Plugin
-// Read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
-intellij {
-    version.set("2023.3")
-    type.set("IC") // Target IDE Platform
-
-    plugins.set(
-        listOf(
-            "java",
-            "org.jetbrains.kotlin",
-        ),
-    )
+dependencies {
+    intellijPlatform {
+        intellijIdeaCommunity("2023.3")
+        bundledPlugin("com.intellij.java")
+        bundledPlugin("org.jetbrains.kotlin")
+        pluginVerifier()
+        zipSigner()
+    }
 }
 
-tasks {
-    // Set the JVM compatibility versions
-    withType<JavaCompile> {
-        sourceCompatibility = "17"
-        targetCompatibility = "17"
+// Configure Gradle IntelliJ Platform Plugin
+// Read more: https://plugins.jetbrains.com/docs/intellij/tools-intellij-platform-gradle-plugin.html
+intellijPlatform {
+    pluginConfiguration {
+        ideaVersion {
+            sinceBuild = "232"
+        }
     }
-    withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        kotlinOptions.jvmTarget = "17"
+    signing {
+        certificateChain = providers.environmentVariable("CERTIFICATE_CHAIN")
+        privateKey = providers.environmentVariable("PRIVATE_KEY")
+        password = providers.environmentVariable("PRIVATE_KEY_PASSWORD")
     }
+    publishing {
+        token = providers.environmentVariable("PUBLISH_TOKEN")
+    }
+}
 
-    patchPluginXml {
-        sinceBuild.set("232")
-        untilBuild.set("253.*")
-    }
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
 
-    signPlugin {
-        certificateChain.set(System.getenv("CERTIFICATE_CHAIN"))
-        privateKey.set(System.getenv("PRIVATE_KEY"))
-        password.set(System.getenv("PRIVATE_KEY_PASSWORD"))
-    }
-
-    publishPlugin {
-        token.set(System.getenv("PUBLISH_TOKEN"))
+kotlin {
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
     }
 }
